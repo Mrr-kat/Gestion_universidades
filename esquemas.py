@@ -1,7 +1,6 @@
 from pydantic import BaseModel, EmailStr
-from typing import List, Optional
+from typing import Optional
 
-# Esquemas para Estudiantes
 class EstudianteBase(BaseModel):
     cedula: str
     nombre: str
@@ -18,6 +17,5 @@ class EstudianteActualizar(BaseModel):
 
 class Estudiante(EstudianteBase):
     id: int
-    
     class Config:
         from_attributes = True
