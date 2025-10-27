@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
+# Tabla intermedia estudiante-curso
 estudiante_curso = Table(
     'estudiante_curso',
     Base.metadata,
