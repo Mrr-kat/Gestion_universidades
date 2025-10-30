@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional, List
+from typing import List, Optional
 
-
+# Esquemas para Estudiantes
 class EstudianteBase(BaseModel):
     cedula: str
     nombre: str
@@ -18,10 +18,14 @@ class EstudianteActualizar(BaseModel):
 
 class Estudiante(EstudianteBase):
     id: int
+    
     class Config:
         from_attributes = True
 
+class EstudianteConCursos(Estudiante):
+    cursos: List['Curso'] = []
 
+# Esquemas para Cursos
 class CursoBase(BaseModel):
     codigo: str
     nombre: str
@@ -38,17 +42,17 @@ class CursoActualizar(BaseModel):
 
 class Curso(CursoBase):
     id: int
+    
     class Config:
         from_attributes = True
-
 
 class CursoConEstudiantes(Curso):
     estudiantes: List[Estudiante] = []
 
-class EstudianteConCursos(Estudiante):
-    cursos: List[Curso] = []
+# Esquema para matrículas
+class Matricula(BaseModel):
+    estudiante_id: int
+    curso_id: int
 
-
-
-CursoConEstudiantes.model_rebuild()
-EstudianteConCursos.model_rebuild()
+# Actualizar referencias
+EstudianteConCursos.update_forward_refs()
