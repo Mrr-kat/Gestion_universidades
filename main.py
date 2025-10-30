@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from DB import obtener_bd, motor
 from modelos import Base
-from esquemas import Estudiante, EstudianteCrear, EstudianteActualizar,Curso, CursoCrear, CursoActualizar, CursoConEstudiantes
+from esquemas import Estudiante, EstudianteCrear, EstudianteActualizar,Curso, CursoCrear, CursoActualizar, CursoConEstudiantes, Matricula
 
 import crud
 
@@ -57,6 +57,23 @@ def actualizar_curso(curso_id: int, curso: CursoActualizar, bd: Session = Depend
 @app.delete("/cursos/{curso_id}")
 def eliminar_curso(curso_id: int, bd: Session = Depends(obtener_bd)):
     return crud.eliminar_curso(bd=bd, curso_id=curso_id)
+
+# Endpoints para Matrículas
+@app.post("/matricular/", status_code=status.HTTP_201_CREATED)
+def matricular_estudiante(matricula: Matricula, bd: Session = Depends(obtener_bd)):
+    return crud.matricular_estudiante(
+        bd=bd, 
+        estudiante_id=matricula.estudiante_id, 
+        curso_id=matricula.curso_id
+    )
+
+@app.delete("/desmatricular/")
+def desmatricular_estudiante(matricula: Matricula, bd: Session = Depends(obtener_bd)):
+    return crud.desmatricular_estudiante(
+        bd=bd, 
+        estudiante_id=matricula.estudiante_id, 
+        curso_id=matricula.curso_id
+    )
 
 @app.get("/estudiantes/{estudiante_id}/cursos", response_model=List[Curso])
 def obtener_cursos_estudiante(estudiante_id: int, bd: Session = Depends(obtener_bd)):
