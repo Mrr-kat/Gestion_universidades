@@ -114,11 +114,3 @@ POST /matricular/
   "curso_id": 1
 }
 ```
-
----
-
-## 🧹 Notas
-
-- La base de datos se genera automáticamente como `universidad.db`.
-- Si la eliminas, se volverá a crear al ejecutar `main.py`.
-- Usa `/docs` para probar los endpoints fácilmente.
