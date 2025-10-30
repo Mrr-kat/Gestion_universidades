@@ -50,6 +50,7 @@ def leer_cursos(
 def leer_curso(curso_id: int, bd: Session = Depends(obtener_bd)):
    return crud.obtener_curso_con_estudiantes(bd=bd, curso_id=curso_id)
 
+
 @app.put("/cursos/{curso_id}", response_model=Curso)
 def actualizar_curso(curso_id: int, curso: CursoActualizar, bd: Session = Depends(obtener_bd)):
     return crud.actualizar_curso(bd=bd, curso_id=curso_id, curso_actualizar=curso)
